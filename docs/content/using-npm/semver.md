@@ -1,6 +1,13 @@
 semver(7) -- The semantic versioner for npm
 ===========================================
 
+<<<<<<< HEAD
+# semver(7)
+
+## The semantic versioner for npm
+
+=======
+>>>>>>> f2be11293... lala
 ## Install
 
 ```bash

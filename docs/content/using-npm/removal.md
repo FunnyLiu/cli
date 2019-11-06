@@ -4,7 +4,7 @@ title: removal
 description: Cleaning the Slate
 ---
 
-# removal
+# removal(7)
 
 ## Cleaning the Slate
 
