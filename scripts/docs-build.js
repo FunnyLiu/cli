@@ -10,7 +10,7 @@ var dest = args[1] || src
 fs.readFile(src, 'utf8', function (err, data) {
   if (err) return console.log(err)
 
-  function replacer(match, p1) {
+  function replacer (match, p1) {
     return 'npm help ' + p1.replace(/npm /, '')
   }
 
@@ -19,11 +19,10 @@ fs.readFile(src, 'utf8', function (err, data) {
     .replace(/\[([^\]]+)\]\(\/cli-commands\/([^)]+)\)/g, replacer)
     .replace(/\[([^\]]+)\]\(\/configuring-npm\/([^)]+)\)/g, replacer)
     .replace(/\[([^\]]+)\]\(\/using-npm\/([^)]+)\)/g, replacer)
-    .replace(/(# npm.*)\s+(## (.*))/g, '$1 - $3')
+    .replace(/(# .*)\s+(## (.*))/g, '$1 - $3')
     .trim()
 
   fs.writeFile(dest, marked(result), 'utf8', function (err) {
     if (err) return console.log(err)
   })
-
 })
