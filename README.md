@@ -1,3 +1,266 @@
+
+# 源码分析
+
+## 文件结构
+
+``` bash
+/Users/liufang/openSource/FunnyLiu/cli
+├── bin
+|  ├── node-gyp-bin
+|  |  ├── node-gyp
+|  |  └── node-gyp.cmd
+|  ├── npm
+|  ├── npm-cli.js - npm命令的入口文件
+|  ├── npm.cmd
+|  ├── npx
+|  ├── npx-cli.js
+|  └── npx.cmd
+├── configure
+├── lib
+|  ├── access.js
+|  ├── adduser.js
+|  ├── audit.js
+|  ├── auth
+|  |  ├── legacy.js
+|  |  ├── oauth.js
+|  |  ├── saml.js
+|  |  └── sso.js
+|  ├── bin.js
+|  ├── bugs.js
+|  ├── build.js
+|  ├── cache.js
+|  ├── ci.js
+|  ├── completion.js
+|  ├── config
+|  |  ├── bin-links.js
+|  |  ├── clear-credentials-by-uri.js
+|  |  ├── cmd-list.js
+|  |  ├── core.js
+|  |  ├── defaults.js
+|  |  ├── figgy-config.js
+|  |  ├── gentle-fs.js
+|  |  ├── get-credentials-by-uri.js
+|  |  ├── lifecycle.js
+|  |  ├── load-cafile.js
+|  |  ├── load-prefix.js
+|  |  ├── nerf-dart.js
+|  |  ├── set-credentials-by-uri.js
+|  |  └── set-user.js
+|  ├── config.js
+|  ├── dedupe.js
+|  ├── deprecate.js
+|  ├── dist-tag.js
+|  ├── docs.js
+|  ├── doctor
+|  |  ├── check-files-permission.js
+|  |  ├── check-ping.js
+|  |  ├── get-git-path.js
+|  |  ├── get-latest-nodejs-version.js
+|  |  ├── get-latest-npm-version.js
+|  |  └── verify-cached-files.js
+|  ├── doctor.js
+|  ├── edit.js
+|  ├── explore.js
+|  ├── fetch-package-metadata.js
+|  ├── fetch-package-metadata.md
+|  ├── fund.js
+|  ├── get.js
+|  ├── help-search.js
+|  ├── help.js
+|  ├── hook.js
+|  ├── init.js
+|  ├── install
+|  |  ├── access-error.js
+|  |  ├── action
+|  |  |  ├── build.js
+|  |  |  ├── extract-worker.js
+|  |  |  ├── extract.js
+|  |  |  ├── fetch.js
+|  |  |  ├── finalize.js
+|  |  |  ├── global-install.js
+|  |  |  ├── global-link.js
+|  |  |  ├── install.js
+|  |  |  ├── move.js
+|  |  |  ├── postinstall.js
+|  |  |  ├── preinstall.js
+|  |  |  ├── prepare.js
+|  |  |  ├── refresh-package-json.js
+|  |  |  ├── remove.js
+|  |  |  └── unbuild.js
+|  |  ├── actions.js
+|  |  ├── and-add-parent-to-errors.js
+|  |  ├── and-finish-tracker.js
+|  |  ├── and-ignore-errors.js
+|  |  ├── audit.js
+|  |  ├── check-permissions.js
+|  |  ├── copy-tree.js
+|  |  ├── decompose-actions.js
+|  |  ├── deps.js
+|  |  ├── diff-trees.js
+|  |  ├── exists.js
+|  |  ├── flatten-tree.js
+|  |  ├── fund.js
+|  |  ├── get-requested.js
+|  |  ├── has-modern-meta.js
+|  |  ├── inflate-bundled.js
+|  |  ├── inflate-shrinkwrap.js
+|  |  ├── is-dev-dep.js
+|  |  ├── is-extraneous.js
+|  |  ├── is-fs-access-available.js
+|  |  ├── is-only-dev.js
+|  |  ├── is-only-optional.js
+|  |  ├── is-opt-dep.js
+|  |  ├── is-prod-dep.js
+|  |  ├── module-staging-path.js
+|  |  ├── mutate-into-logical-tree.js
+|  |  ├── node.js
+|  |  ├── read-shrinkwrap.js
+|  |  ├── realize-shrinkwrap-specifier.js
+|  |  ├── report-optional-failure.js
+|  |  ├── save.js
+|  |  ├── update-package-json.js
+|  |  ├── validate-args.js
+|  |  ├── validate-tree.js
+|  |  └── writable.js
+|  ├── install-ci-test.js
+|  ├── install-test.js
+|  ├── install.js
+|  ├── link.js
+|  ├── logout.js
+|  ├── ls.js
+|  ├── npm.js
+|  ├── org.js
+|  ├── outdated.js
+|  ├── owner.js
+|  ├── pack.js
+|  ├── ping.js
+|  ├── prefix.js
+|  ├── profile.js
+|  ├── prune.js
+|  ├── publish.js
+|  ├── rebuild.js
+|  ├── repo.js
+|  ├── restart.js
+|  ├── root.js
+|  ├── run-script.js
+|  ├── search
+|  |  ├── all-package-metadata.js
+|  |  ├── all-package-search.js
+|  |  ├── format-package-stream.js
+|  |  └── package-filter.js
+|  ├── search.js
+|  ├── set.js
+|  ├── shrinkwrap.js
+|  ├── star.js
+|  ├── stars.js
+|  ├── start.js
+|  ├── stop.js
+|  ├── substack.js
+|  ├── team.js
+|  ├── test.js
+|  ├── token.js
+|  ├── unbuild.js
+|  ├── uninstall.js
+|  ├── unpublish.js
+|  ├── update.js
+|  ├── utils
+|  |  ├── ansi-trim.js
+|  |  ├── cache-file.js
+|  |  ├── child-path.js
+|  |  ├── completion
+|  |  |  ├── file-completion.js
+|  |  |  ├── installed-deep.js
+|  |  |  └── installed-shallow.js
+|  |  ├── completion.sh
+|  |  ├── correct-mkdir.js
+|  |  ├── deep-sort-object.js
+|  |  ├── depr-check.js
+|  |  ├── did-you-mean.js
+|  |  ├── error-handler.js
+|  |  ├── error-message.js
+|  |  ├── escape-arg.js
+|  |  ├── escape-exec-path.js
+|  |  ├── funding.js
+|  |  ├── gently-rm.js
+|  |  ├── git.js
+|  |  ├── gunzip-maybe.js
+|  |  ├── is-registry.js
+|  |  ├── is-windows-bash.js
+|  |  ├── is-windows-shell.js
+|  |  ├── is-windows.js
+|  |  ├── lifecycle-cmd.js
+|  |  ├── lifecycle.js
+|  |  ├── link.js
+|  |  ├── locker.js
+|  |  ├── metrics-launch.js
+|  |  ├── metrics.js
+|  |  ├── module-name.js
+|  |  ├── move.js
+|  |  ├── no-progress-while-running.js
+|  |  ├── open-url.js
+|  |  ├── otplease.js
+|  |  ├── output.js
+|  |  ├── package-id.js
+|  |  ├── parse-json.js
+|  |  ├── perf.js
+|  |  ├── pick-manifest-from-registry-metadata.js
+|  |  ├── pulse-till-done.js
+|  |  ├── read-local-package.js
+|  |  ├── read-user-info.js
+|  |  ├── save-stack.js
+|  |  ├── spawn.js
+|  |  ├── temp-filename.js
+|  |  ├── umask.js
+|  |  ├── unix-format-path.js
+|  |  ├── unsupported.js - 判断兼容性范围
+|  |  ├── usage.js
+|  |  └── warn-deprecated.js
+|  ├── version.js
+|  ├── view.js
+|  ├── visnup.js
+|  ├── whoami.js
+|  └── xmas.js
+├── make.bat
+├── package-lock.json
+├── package.json
+├── scripts
+|  ├── changelog.js
+|  ├── clean-old.sh
+|  ├── dep-update
+|  ├── dev-dep-update
+|  ├── docs-build.js
+|  ├── gen-changelog
+|  ├── gen-dev-ignores.js
+|  ├── install.sh
+|  ├── maketest
+|  ├── pr
+|  ├── publish-tag.js
+|  ├── release.sh
+|  ├── relocate.sh
+|  └── update-authors.sh
+
+```
+
+## 外部模块依赖
+
+请在： http://npm.broofa.com?q=npm 查看
+
+核心外部模块
+
+- [npmlog](https://github.com/npm/npmlog) - npm命令可以使用的log封装
+
+
+## 内部模块依赖
+
+![img](./inner.svg)
+  
+## 逐个文件分析
+
+### bin/npm-cli.js
+
+npm命令的入口文件。
+
+
 npm(1) -- a JavaScript package manager
 ==============================
 

@@ -15,10 +15,11 @@
   }
 
   process.title = 'npm'
-
+  // 判断兼容性范围
   var unsupported = require('../lib/utils/unsupported.js')
   unsupported.checkForBrokenNode()
-
+  
+  //npm的日志工具
   var log = require('npmlog')
   log.pause() // will be unpaused when config is loaded.
   log.info('it worked if it ends with', 'ok')
