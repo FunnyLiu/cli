@@ -125,7 +125,7 @@
 |  ├── install-ci-test.js
 |  ├── install-test.js
 |  ├── install.js
-|  ├── link.js
+|  ├── link.js - npm link 具体实现
 |  ├── logout.js
 |  ├── ls.js
 |  ├── npm.js
@@ -265,6 +265,20 @@ npm命令的入口文件。
 ### npm run ** 原理
 
 npm run 的时候执行子shell命令的实现，基npm-lifecycle->child_process模块开启子进程来完成。我们每次在运行 scripts 中的一个属性时候(npm run),**实际系统都会自动新建一个shell(一般是Bash)，在这个shell里面执行指定的脚本命令。
+
+### npm link 原理
+
+npm link 主要做了两件事：
+
+为目标 npm 模块创建软链接，将其链接到全局 node 模块安装路径 /usr/local/lib/node_modules/。
+
+为目标 npm 模块的可执行 bin 文件创建软链接，将其链接到全局 node 命令安装路径 /usr/local/bin/。
+
+而 npm link ** 则是将全局的**再软链回自己的依赖下面。
+
+以上具体逻辑在link.js中。
+
+npm unlink的本质就是 npm uninstall，没有单独文件，直接指向uninstall.js文件
 
 
 npm(1) -- a JavaScript package manager
