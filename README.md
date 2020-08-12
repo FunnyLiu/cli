@@ -16,7 +16,7 @@
 |  ├── npx-cli.js
 |  └── npx.cmd
 ├── configure
-├── lib
+├── lib - lib一级目录下为各个子命令具体实现
 |  ├── access.js
 |  ├── adduser.js
 |  ├── audit.js
@@ -139,10 +139,10 @@
 |  ├── prune.js
 |  ├── publish.js
 |  ├── rebuild.js
-|  ├── repo.js
+|  ├── repo.js - npm repo 具体执行实现
 |  ├── restart.js
 |  ├── root.js
-|  ├── run-script.js
+|  ├── run-script.js - npm run *** 的实现，npm run 的时候执行子shell命令的实现，基于npm-lifecycle->child_process模块开启子进程来完成
 |  ├── search
 |  |  ├── all-package-metadata.js
 |  |  ├── all-package-search.js
@@ -249,16 +249,22 @@
 
 - [npmlog](https://github.com/npm/npmlog) - npm命令可以使用的log封装
 
+- [npm-lifecycle源码分析](https://github.com/FunnyLiu/npm-lifecycle/tree/readsource) - npm run 的时候执行子shell命令的实现，基于child_process模块开启子进程来完成
+
 
 ## 内部模块依赖
 
 ![img](./inner.svg)
   
-## 逐个文件分析
+## 相关知识点
 
 ### bin/npm-cli.js
 
 npm命令的入口文件。
+
+### npm run ** 原理
+
+npm run 的时候执行子shell命令的实现，基npm-lifecycle->child_process模块开启子进程来完成。我们每次在运行 scripts 中的一个属性时候(npm run),**实际系统都会自动新建一个shell(一般是Bash)，在这个shell里面执行指定的脚本命令。
 
 
 npm(1) -- a JavaScript package manager
